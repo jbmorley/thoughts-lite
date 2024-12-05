@@ -1,0 +1,104 @@
+INCLUDE "system.oxh"
+INCLUDE "date.oxh"
+
+INCLUDE "Systinfo.txh"
+
+PROC main:
+	LOCAL k&
+	LOCAL timestamp&, offset&, date$(25)
+	LOCAL basename$(22), path$(255)
+	LOCAL content$(255)
+	LOCAL handle%
+	LOCAL r%
+
+	REM Get the current timestamp and offset.
+	timestamp&=NOW&:
+	offset&=SIUTCOffset&:
+
+	REM Format the date, path, and content.
+	date$ = ISO8601$:(timestamp&, offset&)
+	basename$ = BASENAME$:(timestamp&, offset&)
+	path$ = "C:\Thoughts\" + basename$ + ".md"
+	content$ = "---" + CRLF$: + "date: " + date$ + CRLF$: + "---" + REPT$(CRLF$:, 2)
+
+	REM Write the metadata to the file.
+	r% = IOOPEN(handle%, path$, 1)
+	IF (r% <> 0)
+		REM TODO: Present the error.
+		PRINT "Failed to open file with error " + NUM$(r%, 2) + "."
+		GET
+		RETURN
+	ENDIF
+	REM TODO: Check the number of bytes written.
+	IOWRITE(handle%, ADDR(content$) + 1, LEN(content$))
+	r% = IOCLOSE(handle%)
+	IF (r% <> 0)
+		REM TODO: Present the error.
+		PRINT "Failed to close file with error " + NUM$(r%,2) + "."
+		GET
+		RETURN
+	ENDIF
+	
+	REM Open the file.
+	k& = RUNAPP&:("Editor", path$, "", 2)
+	
+	REM GET
+ENDP
+
+PROC CRLF$:
+	RETURN CHR$(13) + CHR$(10)
+ENDP
+
+PROC ZPAD$:(value&, length%)
+	REM Left-pad strings with '0' up to a length, length%.
+	
+	RETURN RIGHT$(REPT$("0", length%) + NUM$(value&, length%), length%)
+ENDP
+	
+PROC ISO8601$:(timestamp&, utcOffset&)
+	REM Return an ISO 8601 formatted date and time with UTC offset.
+	REM Result is guaranteed to be 25 characters long.
+
+	LOCAL year%, month%, day%, hour%, minute%, second%, yearday%
+	LOCAL offsetSign$(1), offsetHours&, offsetMinutes&
+	LOCAL result$(25)
+	
+	REM Extract the timestamp components.
+	SECSTODATE timestamp&, year%, month%, day%, hour%, minute%, second%, yearday%
+	
+	REM Extract the offset components.
+	offsetHours& = IABS(utcOffset& / 3600)
+	offsetMinutes& = MOD&:(utcOffset& / 60, 60)
+	IF (utcOffset& < 0)
+		offsetSign$="-"
+	ELSE
+		offsetSign$="+"
+	ENDIF
+	
+	RETURN NUM$(year%, 4) + "-" + ZPAD$:(month%, 2) + "-" + ZPAD$:(day%, 2) + "T" + ZPAD$:(hour%, 2) + ":" + ZPAD$:(minute%, 2) + ":" + ZPAD$:(second%, 2) + offsetSign$ + ZPAD$:(offsetHours&, 2) + ":" + ZPAD$:(offsetMinutes&, 2)
+ENDP
+
+PROC NOW&:
+	REM Return the current time as seconds since epoch.
+	LOCAL epoch&, now&, result&
+	
+	epoch&=DTNEWDATETIME&:(1970,1,1,0,0,0,0)
+	now&=DTNOW&:
+	result&=DTSECSDIFF&:(epoch&,now&)
+	DTDELETEDATETIME:(epoch&)
+	DTDELETEDATETIME:(now&)
+
+	RETURN result&
+ENDP
+
+PROC BASENAME$:(timestamp&,utcOffset&)
+	REM Return a string representation of timestamp& and utcOffset& suitable for using in a filename.
+	REM Result is guaranteed to be 19 characters long.
+	LOCAL utcTimestamp&
+	LOCAL year%, month%, day%, hour%, minute%, second%, yearday%
+	
+	utcTimestamp&=timestamp&-utcOffset&
+	SECSTODATE utcTimestamp&,year%,month%,day%,hour%,minute%,second%,yearday%
+	
+	RETURN NUM$(year%,4) + "-" + ZPAD$:(month%,2) + "-" + ZPAD$:(day%,2) + "-" + ZPAD$:(hour%,2) + "-" + ZPAD$:(minute%,2) + "-" + ZPAD$:(second%,2)
+ENDP
