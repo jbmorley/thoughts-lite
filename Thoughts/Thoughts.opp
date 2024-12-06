@@ -1,9 +1,85 @@
+INCLUDE "const.oph"
+
 INCLUDE "system.oxh"
 INCLUDE "date.oxh"
 
 INCLUDE "Systinfo.txh"
 
 PROC main:
+	GLOBAL CRLF$(2)
+	LOCAL ev&(16), k&
+	
+	initglobals:
+	clear:	
+	
+	WHILE 1
+		GETEVENT32 ev&()
+		k& = ev&(1)
+		IF k& = KKeyMenu% OR k& = KKeySidebarMenu%
+			menu:
+		ELSEIF k& < 32
+			REM Key codes are modified if control is pressed. I don't know why.
+			k& = k& + %a - 1
+			IF k& = %n
+				new:
+			ELSEIF k& = %e AND ev&(4) = KKModControl%
+				close:
+			ELSEIF k& = %k AND ev&(4) = KKModControl%
+				clear:
+			ELSEIF k& = %a AND ev&(4) = (KKModControl% OR KKModShift%)
+				about:
+			ELSE
+				PRINT k&
+			ENDIF
+		ELSEIF (ev&(1) AND &400) = 0
+			PRINT ev&(1), ev&(2), ev&(3), ev&(4), ev&(5)
+		ENDIF
+	ENDWH
+	
+ENDP
+
+PROC initglobals:
+	CRLF$ = CHR$(13) + CHR$(10)
+ENDP
+
+PROC menu:
+	LOCAL m%
+	
+	mINIT
+	mCARD "File", "New", -%n, "Close", %e
+	mCARD "View", "Clear", %k
+	mCARD "Tools", "About Thoughts...", %A
+	m% = MENU
+	
+	IF m% = %n
+		new:
+	ELSEIF m% = %e
+		close:
+	ELSEIF m% = %k
+		clear:
+	ELSEIF m% = %A
+		about:
+	ENDIF
+ENDP
+
+PROC about:
+	dINIT "About Thoughts"
+	dTEXT "", "Copyright " + CHR$(169) + " Jason Morley 2024"
+	dBUTTONS "OK", 13 + $100
+	DIALOG
+ENDP
+
+PROC close:
+	STOP
+ENDP
+
+PROC clear:
+	CLS
+	PRINT "Thoughts"
+	PRINT "========"
+ENDP
+
+PROC new:
 	LOCAL k&
 	LOCAL timestamp&, offset&, date$(25)
 	LOCAL basename$(22), path$(255)
@@ -12,14 +88,14 @@ PROC main:
 	LOCAL r%
 
 	REM Get the current timestamp and offset.
-	timestamp&=NOW&:
+	timestamp&=now&:
 	offset&=SIUTCOffset&:
 
 	REM Format the date, path, and content.
-	date$ = ISO8601$:(timestamp&, offset&)
-	basename$ = BASENAME$:(timestamp&, offset&)
+	date$ = iso8601$:(timestamp&, offset&)
+	basename$ = basename$:(timestamp&, offset&)
 	path$ = "C:\Thoughts\" + basename$ + ".md"
-	content$ = "---" + CRLF$: + "date: " + date$ + CRLF$: + "---" + REPT$(CRLF$:, 2)
+	content$ = "---" + CRLF$ + "date: " + date$ + CRLF$ + "---" + REPT$(CRLF$, 2)
 
 	REM Write the metadata to the file.
 	r% = IOOPEN(handle%, path$, 1)
@@ -41,21 +117,15 @@ PROC main:
 	
 	REM Open the file.
 	k& = RUNAPP&:("Editor", path$, "", 2)
-	
-	REM GET
 ENDP
 
-PROC CRLF$:
-	RETURN CHR$(13) + CHR$(10)
-ENDP
-
-PROC ZPAD$:(value&, length%)
+PROC zpad$:(value&, length%)
 	REM Left-pad strings with '0' up to a length, length%.
 	
 	RETURN RIGHT$(REPT$("0", length%) + NUM$(value&, length%), length%)
 ENDP
 	
-PROC ISO8601$:(timestamp&, utcOffset&)
+PROC iso8601$:(timestamp&, utcOffset&)
 	REM Return an ISO 8601 formatted date and time with UTC offset.
 	REM Result is guaranteed to be 25 characters long.
 
@@ -75,30 +145,30 @@ PROC ISO8601$:(timestamp&, utcOffset&)
 		offsetSign$="+"
 	ENDIF
 	
-	RETURN NUM$(year%, 4) + "-" + ZPAD$:(month%, 2) + "-" + ZPAD$:(day%, 2) + "T" + ZPAD$:(hour%, 2) + ":" + ZPAD$:(minute%, 2) + ":" + ZPAD$:(second%, 2) + offsetSign$ + ZPAD$:(offsetHours&, 2) + ":" + ZPAD$:(offsetMinutes&, 2)
+	RETURN NUM$(year%, 4) + "-" + zpad$:(month%, 2) + "-" + zpad$:(day%, 2) + "T" + zpad$:(hour%, 2) + ":" + zpad$:(minute%, 2) + ":" + zpad$:(second%, 2) + offsetSign$ + zpad$:(offsetHours&, 2) + ":" + zpad$:(offsetMinutes&, 2)
 ENDP
 
-PROC NOW&:
+PROC now&:
 	REM Return the current time as seconds since epoch.
 	LOCAL epoch&, now&, result&
 	
-	epoch&=DTNEWDATETIME&:(1970,1,1,0,0,0,0)
+	epoch&=DTNEWDATETIME&:(1970, 1, 1, 0, 0, 0, 0)
 	now&=DTNOW&:
-	result&=DTSECSDIFF&:(epoch&,now&)
+	result&=DTSECSDIFF&:(epoch&, now&)
 	DTDELETEDATETIME:(epoch&)
 	DTDELETEDATETIME:(now&)
 
 	RETURN result&
 ENDP
 
-PROC BASENAME$:(timestamp&,utcOffset&)
+PROC basename$:(timestamp&, utcOffset&)
 	REM Return a string representation of timestamp& and utcOffset& suitable for using in a filename.
 	REM Result is guaranteed to be 19 characters long.
 	LOCAL utcTimestamp&
 	LOCAL year%, month%, day%, hour%, minute%, second%, yearday%
 	
-	utcTimestamp&=timestamp&-utcOffset&
-	SECSTODATE utcTimestamp&,year%,month%,day%,hour%,minute%,second%,yearday%
+	utcTimestamp& = timestamp& - utcOffset&
+	SECSTODATE utcTimestamp&, year%, month%, day%, hour%, minute%, second%, yearday%
 	
-	RETURN NUM$(year%,4) + "-" + ZPAD$:(month%,2) + "-" + ZPAD$:(day%,2) + "-" + ZPAD$:(hour%,2) + "-" + ZPAD$:(minute%,2) + "-" + ZPAD$:(second%,2)
+	RETURN NUM$(year%, 4) + "-" + zpad$:(month%, 2) + "-" + zpad$:(day%, 2) + "-" + zpad$:(hour%, 2) + "-" + zpad$:(minute%, 2) + "-" + zpad$:(second%, 2)
 ENDP
