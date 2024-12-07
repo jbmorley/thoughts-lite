@@ -3,22 +3,30 @@ INCLUDE "const.oph"
 INCLUDE "system.oxh"
 INCLUDE "date.oxh"
 
-INCLUDE "Systinfo.oxh"
+INCLUDE "SystInfo.oxh"
 
 PROC main:
 	GLOBAL CRLF$(2)
 	LOCAL ev&(16), k&
+	LOCAL capture&
 
 	initglobals:
 	clear:
+
+	REM Capture the global hotkey.
+	capture& = CAPTUREKEY&:(%t, KModifierFunc&, KModifierFunc&)
 
 	WHILE 1
 		GETEVENT32 ev&()
 		k& = ev&(1)
 		IF k& = KKeyMenu% OR k& = KKeySidebarMenu%
+			REM Menu button.
 			menu:
+		ELSEIF k& = %t AND ev&(4) = KKModFn%
+			REM Global hotkey (Fn + T)
+			new:
 		ELSEIF k& < 32
-			REM Key codes are modified if control is pressed. I don't know why.
+			REM Key codes are modified if control is pressed.
 			k& = k& + %a - 1
 			IF k& = %n
 				new:
