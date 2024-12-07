@@ -3,15 +3,15 @@ INCLUDE "const.oph"
 INCLUDE "system.oxh"
 INCLUDE "date.oxh"
 
-INCLUDE "Systinfo.txh"
+INCLUDE "Systinfo.oxh"
 
 PROC main:
 	GLOBAL CRLF$(2)
 	LOCAL ev&(16), k&
-	
+
 	initglobals:
-	clear:	
-	
+	clear:
+
 	WHILE 1
 		GETEVENT32 ev&()
 		k& = ev&(1)
@@ -35,7 +35,7 @@ PROC main:
 			PRINT ev&(1), ev&(2), ev&(3), ev&(4), ev&(5)
 		ENDIF
 	ENDWH
-	
+
 ENDP
 
 PROC initglobals:
@@ -44,13 +44,13 @@ ENDP
 
 PROC menu:
 	LOCAL m%
-	
+
 	mINIT
 	mCARD "File", "New", -%n, "Close", %e
 	mCARD "View", "Clear", %k
 	mCARD "Tools", "About Thoughts...", %A
-	m% = MENU
-	
+	REM m% = MENU
+
 	IF m% = %n
 		new:
 	ELSEIF m% = %e
@@ -114,17 +114,17 @@ PROC new:
 		GET
 		RETURN
 	ENDIF
-	
+
 	REM Open the file.
 	k& = RUNAPP&:("Editor", path$, "", 2)
 ENDP
 
 PROC zpad$:(value&, length%)
 	REM Left-pad strings with '0' up to a length, length%.
-	
+
 	RETURN RIGHT$(REPT$("0", length%) + NUM$(value&, length%), length%)
 ENDP
-	
+
 PROC iso8601$:(timestamp&, utcOffset&)
 	REM Return an ISO 8601 formatted date and time with UTC offset.
 	REM Result is guaranteed to be 25 characters long.
@@ -132,10 +132,10 @@ PROC iso8601$:(timestamp&, utcOffset&)
 	LOCAL year%, month%, day%, hour%, minute%, second%, yearday%
 	LOCAL offsetSign$(1), offsetHours&, offsetMinutes&
 	LOCAL result$(25)
-	
+
 	REM Extract the timestamp components.
 	SECSTODATE timestamp&, year%, month%, day%, hour%, minute%, second%, yearday%
-	
+
 	REM Extract the offset components.
 	offsetHours& = IABS(utcOffset& / 3600)
 	offsetMinutes& = MOD&:(utcOffset& / 60, 60)
@@ -144,14 +144,14 @@ PROC iso8601$:(timestamp&, utcOffset&)
 	ELSE
 		offsetSign$="+"
 	ENDIF
-	
+
 	RETURN NUM$(year%, 4) + "-" + zpad$:(month%, 2) + "-" + zpad$:(day%, 2) + "T" + zpad$:(hour%, 2) + ":" + zpad$:(minute%, 2) + ":" + zpad$:(second%, 2) + offsetSign$ + zpad$:(offsetHours&, 2) + ":" + zpad$:(offsetMinutes&, 2)
 ENDP
 
 PROC now&:
 	REM Return the current time as seconds since epoch.
 	LOCAL epoch&, now&, result&
-	
+
 	epoch&=DTNEWDATETIME&:(1970, 1, 1, 0, 0, 0, 0)
 	now&=DTNOW&:
 	result&=DTSECSDIFF&:(epoch&, now&)
@@ -166,9 +166,9 @@ PROC basename$:(timestamp&, utcOffset&)
 	REM Result is guaranteed to be 19 characters long.
 	LOCAL utcTimestamp&
 	LOCAL year%, month%, day%, hour%, minute%, second%, yearday%
-	
+
 	utcTimestamp& = timestamp& - utcOffset&
 	SECSTODATE utcTimestamp&, year%, month%, day%, hour%, minute%, second%, yearday%
-	
+
 	RETURN NUM$(year%, 4) + "-" + zpad$:(month%, 2) + "-" + zpad$:(day%, 2) + "-" + zpad$:(hour%, 2) + "-" + zpad$:(minute%, 2) + "-" + zpad$:(second%, 2)
 ENDP
