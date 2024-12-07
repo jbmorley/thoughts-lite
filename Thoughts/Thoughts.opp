@@ -49,7 +49,7 @@ PROC menu:
 	mCARD "File", "New", -%n, "Close", %e
 	mCARD "View", "Clear", %k
 	mCARD "Tools", "About Thoughts...", %A
-	REM m% = MENU
+	m% = MENU
 
 	IF m% = %n
 		new:
