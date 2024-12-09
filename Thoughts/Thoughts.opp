@@ -130,6 +130,7 @@ PROC new:
 	ENDIF
 
 	REM Open the file.
+	PRINT path$
 	k& = RUNAPP&:("Editor", path$, "", 0)
 ENDP
 
