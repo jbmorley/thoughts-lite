@@ -5,6 +5,10 @@ INCLUDE "date.oxh"
 
 INCLUDE "SystInfo.oxh"
 
+APP Thoughts, &100092ca
+	CAPTION "Thoughts", 1
+ENDA
+
 PROC main:
 	GLOBAL CRLF$(2)
 	LOCAL ev&(16), k&
