@@ -90,10 +90,12 @@ ENDP
 PROC new:
 	LOCAL k&
 	LOCAL timestamp&, offset&, date$(25)
-	LOCAL basename$(22), path$(255)
+	LOCAL directory$(255), basename$(22), path$(255)
 	LOCAL content$(255)
 	LOCAL handle%
 	LOCAL r%
+
+	directory$ = "C:\Thoughts"
 
 	REM Get the current timestamp and offset.
 	timestamp&=now&:
@@ -102,7 +104,7 @@ PROC new:
 	REM Format the date, path, and content.
 	date$ = iso8601$:(timestamp&, offset&)
 	basename$ = basename$:(timestamp&, offset&)
-	path$ = "C:\Thoughts\" + basename$ + ".md"
+	path$ = directory$ + "\" + basename$ + ".md"
 	content$ = "---" + CRLF$ + "date: " + date$ + CRLF$ + "---" + REPT$(CRLF$, 2)
 
 	REM Write the metadata to the file.
@@ -121,6 +123,11 @@ PROC new:
 		PRINT "Failed to close file with error " + NUM$(r%,2) + "."
 		GET
 		RETURN
+	ENDIF
+
+	REM Ensure the destination directory exists.
+	IF NOT EXIST(directory$)
+		MKDIR directory$
 	ENDIF
 
 	REM Open the file.
