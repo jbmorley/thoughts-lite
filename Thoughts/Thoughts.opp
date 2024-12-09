@@ -18,28 +18,27 @@ PROC main:
 
 	WHILE 1
 		GETEVENT32 ev&()
-		k& = ev&(1)
-		IF k& = KKeyMenu% OR k& = KKeySidebarMenu%
+		IF ev&(KEvAType%) = KKeyMenu% OR ev&(KEvAType%) = KKeySidebarMenu%
 			REM Menu button.
 			menu:
-		ELSEIF k& = %t AND ev&(4) = KKModFn%
+		ELSEIF ev&(KEvAType%) = %t AND ev&(KEvAKMod%) = KKModFn%
 			REM Global hotkey (Fn + T)
 			new:
-		ELSEIF k& < 32
+		ELSEIF ev&(KEvAType%) < 32
 			REM Key codes are modified if control is pressed.
-			k& = k& + %a - 1
+			k& = ev&(KEvAType%) + %a - 1
 			IF k& = %n
 				new:
-			ELSEIF k& = %e AND ev&(4) = KKModControl%
+			ELSEIF k& = %e AND ev&(KEvAKMod%) = KKModControl%
 				close:
-			ELSEIF k& = %k AND ev&(4) = KKModControl%
+			ELSEIF k& = %k AND ev&(KEvAKMod%) = KKModControl%
 				clear:
-			ELSEIF k& = %a AND ev&(4) = (KKModControl% OR KKModShift%)
+			ELSEIF k& = %a AND ev&(KEvAKMod%) = (KKModControl% OR KKModShift%)
 				about:
 			ELSE
 				PRINT k&
 			ENDIF
-		ELSEIF (ev&(1) AND &400) = 0
+		ELSEIF (ev&(KEvAType%) AND &400) = 0
 			PRINT ev&(1), ev&(2), ev&(3), ev&(4), ev&(5)
 		ENDIF
 	ENDWH
