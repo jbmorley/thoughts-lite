@@ -124,7 +124,7 @@ PROC new:
 	ENDIF
 
 	REM Open the file.
-	k& = RUNAPP&:("Editor", path$, "", 2)
+	k& = RUNAPP&:("Editor", path$, "", 0)
 ENDP
 
 PROC zpad$:(value&, length%)
