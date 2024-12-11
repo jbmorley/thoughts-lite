@@ -28,5 +28,20 @@ set -u
 SCRIPTS_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 ROOT_DIRECTORY="$SCRIPTS_DIRECTORY/.."
 COMPILE_PATH="$SCRIPTS_DIRECTORY/opolua/src/compile.lua"
+BUILD_DIRECTORY="$ROOT_DIRECTORY/build"
 
-lua "$COMPILE_PATH" "$ROOT_DIRECTORY/Thoughts/Thoughts.opp" "$ROOT_DIRECTORY/Thoughts/Thoughts.opo"
+# Create the build directory.
+if [ -d "$BUILD_DIRECTORY" ] ; then
+    rm -rf "$BUILD_DIRECTORY"
+fi
+mkdir -p "$BUILD_DIRECTORY"
+
+# Compile.
+lua "$COMPILE_PATH" --aif "$ROOT_DIRECTORY/Thoughts/Thoughts.opp" "$BUILD_DIRECTORY/Thoughts.app"
+
+# Archive the build directory.
+ZIP_BASENAME="build.zip"
+ZIP_PATH="$BUILD_DIRECTORY/$ZIP_BASENAME"
+pushd "$BUILD_DIRECTORY"
+zip -r "$ZIP_BASENAME" .
+popd
