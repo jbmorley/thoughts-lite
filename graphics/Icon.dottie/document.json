@@ -1,0 +1,63 @@
+{
+  "height" : 32,
+  "version" : "1.0",
+  "ditherSteps" : 8,
+  "gridType" : "Gridlines",
+  "framesPerSecond" : 15,
+  "previewScale" : "Fit",
+  "layerMode" : "normal",
+  "brushShape" : "Circle",
+  "width" : 32,
+  "brushSize" : 1,
+  "layers" : [
+    {
+      "id" : "77F69A33-1DA7-4B5F-B21E-F16BECF5A383",
+      "isVisible" : true,
+      "name" : "Layer 1",
+      "opacityPercent" : 100
+    }
+  ],
+  "showGrid" : true,
+  "palette" : [
+    {
+      "id" : "32B7ED17-10EF-43FC-A6F5-DB3E810A4E70",
+      "color" : {
+        "blue" : 0,
+        "green" : 0,
+        "alpha" : 1,
+        "red" : 0
+      }
+    },
+    {
+      "id" : "1FB3500E-CEA5-4731-96FF-55C6C7EE801C",
+      "color" : {
+        "red" : 0,
+        "green" : 0,
+        "alpha" : 0,
+        "blue" : 0
+      }
+    },
+    {
+      "id" : "2752FD54-A51D-43E0-B1AC-A01A1344078C",
+      "color" : {
+        "green" : 1,
+        "red" : 1,
+        "blue" : 1,
+        "alpha" : 1
+      }
+    },
+    {
+      "id" : "ACD6EB68-6C41-4E59-8126-9A3AE5BA4204",
+      "color" : {
+        "blue" : 0.6642315388,
+        "red" : 0.6642242074,
+        "green" : 0.6642400622,
+        "alpha" : 1
+      }
+    }
+  ],
+  "gridOpacity" : 0.5,
+  "windowPreviewScale" : "200%",
+  "showPreviewInSidebar" : false,
+  "sidebar" : false
+}
