@@ -44,6 +44,10 @@ PROC main:
 			ENDIF
 		ELSEIF (ev&(KEvAType%) AND &400) = 0
 			PRINT ev&(1), ev&(2), ev&(3), ev&(4), ev&(5)
+		ELSEIF ev&(KEvAType%) = KEvCommand&
+			IF GETCMD$ = "X"
+				STOP
+			ENDIF
 		ENDIF
 	ENDWH
 
