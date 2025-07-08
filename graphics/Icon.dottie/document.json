@@ -1,63 +1,81 @@
 {
-  "height" : 32,
   "version" : "1.0",
-  "ditherSteps" : 8,
   "gridType" : "Gridlines",
-  "framesPerSecond" : 15,
-  "previewScale" : "Fit",
-  "layerMode" : "normal",
-  "brushShape" : "Circle",
-  "width" : 32,
+  "brushShape" : "Diagonal",
   "brushSize" : 1,
   "layers" : [
     {
-      "id" : "77F69A33-1DA7-4B5F-B21E-F16BECF5A383",
-      "isVisible" : true,
+      "id" : "0FBB6A96-8090-496D-A7C7-45B43E753946",
       "name" : "Layer 1",
+      "isVisible" : true,
       "opacityPercent" : 100
     }
   ],
-  "showGrid" : true,
+  "windowPreviewScale" : "Fit",
   "palette" : [
     {
-      "id" : "32B7ED17-10EF-43FC-A6F5-DB3E810A4E70",
+      "id" : "32EBCB63-B1D1-4F7A-988A-D4C672308242",
       "color" : {
-        "blue" : 0,
         "green" : 0,
-        "alpha" : 1,
-        "red" : 0
+        "red" : 0,
+        "blue" : 0,
+        "alpha" : 1
       }
     },
     {
-      "id" : "1FB3500E-CEA5-4731-96FF-55C6C7EE801C",
+      "id" : "76B03497-CE06-4899-BF8E-484E8B006963",
       "color" : {
-        "red" : 0,
         "green" : 0,
         "alpha" : 0,
+        "red" : 0,
         "blue" : 0
       }
     },
     {
-      "id" : "2752FD54-A51D-43E0-B1AC-A01A1344078C",
+      "id" : "017D328C-528A-405C-A73E-CC1185463C28",
       "color" : {
-        "green" : 1,
-        "red" : 1,
         "blue" : 1,
-        "alpha" : 1
+        "green" : 1,
+        "alpha" : 1,
+        "red" : 1
       }
     },
     {
-      "id" : "ACD6EB68-6C41-4E59-8126-9A3AE5BA4204",
+      "id" : "6228293B-027B-4F89-8831-422D7F4A6D47",
       "color" : {
-        "blue" : 0.6642315388,
-        "red" : 0.6642242074,
-        "green" : 0.6642400622,
+        "green" : 0.7540867925,
+        "alpha" : 1,
+        "blue" : 0.7540771365,
+        "red" : 0.7540688515
+      }
+    },
+    {
+      "id" : "CD14D827-72CB-41DB-8760-D3D76462C1E2",
+      "color" : {
+        "red" : 0.4756349325,
+        "green" : 0.4756467342,
+        "alpha" : 1,
+        "blue" : 0.4756404161
+      }
+    },
+    {
+      "id" : "EDEA8793-4BAC-4239-B7EE-5DE42E7CD656",
+      "color" : {
+        "red" : 0,
+        "blue" : 0.92066890001297,
+        "green" : 0.5767202973365784,
         "alpha" : 1
       }
     }
   ],
+  "layerMode" : "normal",
+  "sidebar" : true,
   "gridOpacity" : 0.5,
-  "windowPreviewScale" : "200%",
-  "showPreviewInSidebar" : false,
-  "sidebar" : false
+  "showGrid" : true,
+  "previewScale" : "200%",
+  "showPreviewInSidebar" : true,
+  "height" : 48,
+  "width" : 48,
+  "ditherSteps" : 8,
+  "framesPerSecond" : 15
 }
