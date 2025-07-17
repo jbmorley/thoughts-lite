@@ -52,7 +52,9 @@ cp "$ROOT_DIRECTORY/Thoughts/Editor (Black & White).sis" .
 cp "$ROOT_DIRECTORY/Thoughts/Editor (Colour).sis" .
 cp "$ROOT_DIRECTORY/Thoughts/Systinfo.sis" .
 cp "$ROOT_DIRECTORY/Thoughts/Thoughts.pkg" .
+cp "$ROOT_DIRECTORY/Thoughts/ThoughtsC.pkg" .
 makesis "Thoughts.pkg" "$BUILD_DIRECTORY/Thoughts.sis"
+makesis "ThoughtsC.pkg" "$BUILD_DIRECTORY/ThoughtsC.sis"
 
 # Archive the build directory.
 ZIP_BASENAME="build.zip"
