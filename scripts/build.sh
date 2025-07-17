@@ -48,7 +48,7 @@ mkdir -p "$PACKAGE_DIRECTORY"
 # Compile and package.
 cd "$PACKAGE_DIRECTORY"
 compile --aif "$ROOT_DIRECTORY/Thoughts/Thoughts.opp" "Thoughts.app"
-cp "$ROOT_DIRECTORY/Thoughts/Dependencies/"*.sis .
+cp "$ROOT_DIRECTORY/Thoughts/dependencies/"*.sis .
 cp "$ROOT_DIRECTORY/Thoughts/"*.pkg .
 makesis "Thoughts.pkg" "$BUILD_DIRECTORY/Thoughts.sis"
 makesis "ThoughtsC.pkg" "$BUILD_DIRECTORY/ThoughtsC.sis"
