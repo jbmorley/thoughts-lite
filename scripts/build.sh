@@ -27,17 +27,32 @@ set -u
 
 SCRIPTS_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 ROOT_DIRECTORY="$SCRIPTS_DIRECTORY/.."
-COMPILE_PATH="$SCRIPTS_DIRECTORY/opolua/src/compile.lua"
 BUILD_DIRECTORY="$ROOT_DIRECTORY/build"
+PACKAGE_DIRECTORY="$BUILD_DIRECTORY/package"
+
+function compile {
+    lua "$SCRIPTS_DIRECTORY/opolua/src/compile.lua" "$@"
+}
+
+function makesis {
+    lua "$SCRIPTS_DIRECTORY/opolua/src/makesis.lua" "$@"
+}
 
 # Create the build directory.
 if [ -d "$BUILD_DIRECTORY" ] ; then
     rm -rf "$BUILD_DIRECTORY"
 fi
 mkdir -p "$BUILD_DIRECTORY"
+mkdir -p "$PACKAGE_DIRECTORY"
 
-# Compile.
-lua "$COMPILE_PATH" --aif "$ROOT_DIRECTORY/Thoughts/Thoughts.opp" "$BUILD_DIRECTORY/Thoughts.app"
+cd "$PACKAGE_DIRECTORY"
+compile --aif "$ROOT_DIRECTORY/Thoughts/Thoughts.opp" "Thoughts.app"
+cp "$ROOT_DIRECTORY/Thoughts/Editor (Black & White).sis" .
+cp "$ROOT_DIRECTORY/Thoughts/Editor (Black & White).sis" .
+cp "$ROOT_DIRECTORY/Thoughts/Editor (Colour).sis" .
+cp "$ROOT_DIRECTORY/Thoughts/Systinfo.sis" .
+cp "$ROOT_DIRECTORY/Thoughts/Thoughts.pkg" .
+makesis "Thoughts.pkg" "$BUILD_DIRECTORY/Thoughts.sis"
 
 # Archive the build directory.
 ZIP_BASENAME="build.zip"

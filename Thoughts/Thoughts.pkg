@@ -1,6 +1,7 @@
 &EN
 #{"Thoughts"},(0x100092ca),0,1,0
-"C:\System\Apps\Thoughts\Thoughts.app"-"!:\System\Apps\Thoughts\Thoughts.app"
-"C:\System\Apps\Thoughts\Thoughts.aif"-"!:\System\Apps\Thoughts\Thoughts.aif"
+"Thoughts.app"-"!:\System\Apps\Thoughts\Thoughts.app"
+"Thoughts.aif"-"!:\System\Apps\Thoughts\Thoughts.aif"
 
 @"SystInfo.sis",(0x10000b90)
+@"Editor (Black & White)",(0x1000412b)
