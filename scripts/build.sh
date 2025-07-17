@@ -45,14 +45,11 @@ fi
 mkdir -p "$BUILD_DIRECTORY"
 mkdir -p "$PACKAGE_DIRECTORY"
 
+# Compile and package.
 cd "$PACKAGE_DIRECTORY"
 compile --aif "$ROOT_DIRECTORY/Thoughts/Thoughts.opp" "Thoughts.app"
-cp "$ROOT_DIRECTORY/Thoughts/Editor (Black & White).sis" .
-cp "$ROOT_DIRECTORY/Thoughts/Editor (Black & White).sis" .
-cp "$ROOT_DIRECTORY/Thoughts/Editor (Colour).sis" .
-cp "$ROOT_DIRECTORY/Thoughts/Systinfo.sis" .
-cp "$ROOT_DIRECTORY/Thoughts/Thoughts.pkg" .
-cp "$ROOT_DIRECTORY/Thoughts/ThoughtsC.pkg" .
+cp "$ROOT_DIRECTORY/Thoughts/Dependencies/"*.sis .
+cp "$ROOT_DIRECTORY/Thoughts/"*.pkg .
 makesis "Thoughts.pkg" "$BUILD_DIRECTORY/Thoughts.sis"
 makesis "ThoughtsC.pkg" "$BUILD_DIRECTORY/ThoughtsC.sis"
 
