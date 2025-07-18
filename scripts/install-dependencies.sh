@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright (c) 2024 Jason Morley
+# Copyright (c) 2024-2025 Jason Morley
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -27,48 +27,13 @@ set -u
 
 SCRIPTS_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 ROOT_DIRECTORY="$SCRIPTS_DIRECTORY/.."
-SOURCE_DIRECTORY="$ROOT_DIRECTORY/Thoughts"
-BUILD_DIRECTORY="$ROOT_DIRECTORY/build"
-PACKAGE_DIRECTORY="$BUILD_DIRECTORY/package"
+CHANGES_DIRECTORY="$SCRIPTS_DIRECTORY/changes"
 
 source "$SCRIPTS_DIRECTORY/environment.sh"
 
-function compile {
-    lua "$SCRIPTS_DIRECTORY/opolua/src/compile.lua" "$@"
-}
-
-function makesis {
-    lua "$SCRIPTS_DIRECTORY/opolua/src/makesis.lua" "$@"
-}
-
-# Create the build directory.
-if [ -d "$BUILD_DIRECTORY" ] ; then
-    rm -rf "$BUILD_DIRECTORY"
+if [ -d "$LOCAL_TOOLS_PATH" ] ; then
+    rm -r "$LOCAL_TOOLS_PATH"
 fi
-mkdir -p "$BUILD_DIRECTORY"
-mkdir -p "$PACKAGE_DIRECTORY"
 
-# Determine the version number.
-VERSION_NUMBER=`changes version`
-VERSION_SHORT="${VERSION_NUMBER%.*}"
-
-# Compile and package.
-cd "$PACKAGE_DIRECTORY"
-compile --aif "$ROOT_DIRECTORY/Thoughts/Thoughts.opp" "Thoughts.app"
-makesis \
-    --path C:\\System\\Thoughts\\="$PACKAGE_DIRECTORY/" \
-    --version $VERSION_SHORT \
-    "$SOURCE_DIRECTORY/Thoughts.pkg" \
-    "$BUILD_DIRECTORY/Thoughts.sis"
-makesis \
-    --path C:\\System\\Thoughts\\="$PACKAGE_DIRECTORY/" \
-    --version $VERSION_SHORT \
-    "$SOURCE_DIRECTORY/ThoughtsC.pkg" \
-    "$BUILD_DIRECTORY/ThoughtsC.sis"
-
-# Archive the build directory.
-ZIP_BASENAME="build.zip"
-ZIP_PATH="$BUILD_DIRECTORY/$ZIP_BASENAME"
-pushd "$BUILD_DIRECTORY"
-zip -r "$ZIP_BASENAME" .
-popd
+python -m pip install --target "$PYTHONUSERBASE" --upgrade pipenv wheel
+PIPENV_PIPFILE="$CHANGES_DIRECTORY/Pipfile" pipenv install

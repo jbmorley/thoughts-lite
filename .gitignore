@@ -1,3 +1,4 @@
 *.opo
 
+/.local
 /build
