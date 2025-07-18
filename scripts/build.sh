@@ -27,6 +27,7 @@ set -u
 
 SCRIPTS_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 ROOT_DIRECTORY="$SCRIPTS_DIRECTORY/.."
+SOURCE_DIRECTORY="$ROOT_DIRECTORY/Thoughts"
 BUILD_DIRECTORY="$ROOT_DIRECTORY/build"
 PACKAGE_DIRECTORY="$BUILD_DIRECTORY/package"
 
@@ -48,10 +49,14 @@ mkdir -p "$PACKAGE_DIRECTORY"
 # Compile and package.
 cd "$PACKAGE_DIRECTORY"
 compile --aif "$ROOT_DIRECTORY/Thoughts/Thoughts.opp" "Thoughts.app"
-cp "$ROOT_DIRECTORY/Thoughts/dependencies/"*.sis .
-cp "$ROOT_DIRECTORY/Thoughts/"*.pkg .
-makesis "Thoughts.pkg" "$BUILD_DIRECTORY/Thoughts.sis"
-makesis "ThoughtsC.pkg" "$BUILD_DIRECTORY/ThoughtsC.sis"
+makesis \
+    --path C:\\System\\Thoughts\\="$PACKAGE_DIRECTORY/" \
+    "$SOURCE_DIRECTORY/Thoughts.pkg" \
+    "$BUILD_DIRECTORY/Thoughts.sis"
+makesis \
+    --path C:\\System\\Thoughts\\="$PACKAGE_DIRECTORY/" \
+    "$SOURCE_DIRECTORY/ThoughtsC.pkg" \
+    "$BUILD_DIRECTORY/ThoughtsC.sis"
 
 # Archive the build directory.
 ZIP_BASENAME="build.zip"
