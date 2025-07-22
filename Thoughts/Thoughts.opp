@@ -92,6 +92,14 @@ PROC clear:
 	CLS
 	PRINT "Thoughts"
 	PRINT "========"
+	PRINT ""
+	PRINT "Copyright (c) 2024-2025 Jason Morley"
+	PRINT ""
+	PRINT "https://jbmorley.co.uk"
+	PRINT ""
+	PRINT "---"
+	PRINT ""
+	PRINT "Use the Menu+Fn+T global hotkey to date-stamped Frontmatter-formatted note and edit it in Editor."
 ENDP
 
 PROC new:
