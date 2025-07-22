@@ -57,14 +57,12 @@ cd "$PACKAGE_DIRECTORY"
 compile --aif "$ROOT_DIRECTORY/Thoughts/Thoughts.opp" "Thoughts.app"
 makesis \
     --path C:\\System\\Thoughts\\="$PACKAGE_DIRECTORY/" \
-    --path C:\\Projects\\Thoughts\\="$SOURCE_DIRECTORY/" \
     --path C:\\Projects\\Thoughts\\dependencies\\="$SOURCE_DIRECTORY/dependencies/" \
     --version $VERSION_SHORT \
     "$SOURCE_DIRECTORY/Thoughts.pkg" \
     "$BUILD_DIRECTORY/Thoughts.sis"
 makesis \
     --path C:\\System\\Thoughts\\="$PACKAGE_DIRECTORY/" \
-    --path C:\\Projects\\Thoughts\\="$SOURCE_DIRECTORY/" \
     --path C:\\Projects\\Thoughts\\dependencies\\="$SOURCE_DIRECTORY/dependencies/" \
     --version $VERSION_SHORT \
     "$SOURCE_DIRECTORY/ThoughtsC.pkg" \
