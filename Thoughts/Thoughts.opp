@@ -90,16 +90,16 @@ ENDP
 
 PROC clear:
 	CLS
+	REM Psion Series 5, 5mx, and 7 screens are 90 characters wide.
 	PRINT "Thoughts"
 	PRINT "========"
 	PRINT ""
 	PRINT "Copyright (c) 2024-2025 Jason Morley"
-	PRINT ""
 	PRINT "https://jbmorley.co.uk"
 	PRINT ""
-	PRINT "---"
+	PRINT "Usage:"
 	PRINT ""
-	PRINT "Use the Menu+Fn+T global hotkey to date-stamped Frontmatter-formatted note and edit it in Editor."
+	PRINT "Menu+Fn+T - create a new date-stamped Frontmatter document and open in Editor"
 ENDP
 
 PROC new:
