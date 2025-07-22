@@ -7,6 +7,7 @@ INCLUDE "SystInfo.oxh"
 
 APP Thoughts, &100092ca
 	CAPTION "Thoughts", 1
+	ICON "icon.mbm"
 ENDA
 
 PROC main:

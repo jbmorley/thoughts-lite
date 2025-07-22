@@ -1,7 +1,10 @@
 &EN
 #{"Thoughts"},(0x100092ca),0,0,0
+
 "C:\System\Thoughts\Thoughts.app"-"!:\System\Apps\Thoughts\Thoughts.app"
 "C:\System\Thoughts\Thoughts.aif"-"!:\System\Apps\Thoughts\Thoughts.aif"
+
+"C:\Projects\Thoughts\icon.mbm"-"!:\System\Apps\Thoughts\icon.mbm"
 
 @"C:\Projects\Thoughts\dependencies\Systinfo.sis",(0x10000b90)
 @"C:\Projects\Thoughts\dependencies\Editor (Colour).sis",(0x1000412b)
