@@ -93,11 +93,13 @@ PROC clear:
 	PRINT "========"
 	PRINT ""
 	PRINT "Copyright (c) 2024-2025 Jason Morley"
+	PRINT ""
 	PRINT "https://jbmorley.co.uk"
 	PRINT ""
-	PRINT "Usage:"
 	PRINT ""
-	PRINT "Menu+Fn+T - create a new date-stamped Frontmatter document and open in Editor"
+	PRINT "Global Hotkeys:"
+	PRINT ""
+	PRINT "Menu + Fn + T - create a new date-stamped Frontmatter document and open in Editor"
 ENDP
 
 PROC new:
