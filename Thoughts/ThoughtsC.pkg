@@ -3,5 +3,5 @@
 "C:\System\Thoughts\Thoughts.app"-"!:\System\Apps\Thoughts\Thoughts.app"
 "C:\System\Thoughts\Thoughts.aif"-"!:\System\Apps\Thoughts\Thoughts.aif"
 
-@"dependencies\Systinfo.sis",(0x10000b90)
-@"dependencies\Editor (Colour)",(0x1000412b)
+@"C:\Projects\Thoughts\dependencies\Systinfo.sis",(0x10000b90)
+@"C:\Projects\Thoughts\dependencies\Editor (Colour).sis",(0x1000412b)
