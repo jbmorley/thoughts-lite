@@ -27,17 +27,46 @@ set -u
 
 SCRIPTS_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 ROOT_DIRECTORY="$SCRIPTS_DIRECTORY/.."
-COMPILE_PATH="$SCRIPTS_DIRECTORY/opolua/src/compile.lua"
+SOURCE_DIRECTORY="$ROOT_DIRECTORY/Thoughts"
 BUILD_DIRECTORY="$ROOT_DIRECTORY/build"
+PACKAGE_DIRECTORY="$BUILD_DIRECTORY/package"
+
+source "$SCRIPTS_DIRECTORY/environment.sh"
+
+function compile {
+    lua "$SCRIPTS_DIRECTORY/opolua/src/compile.lua" "$@"
+}
+
+function makesis {
+    lua "$SCRIPTS_DIRECTORY/opolua/src/makesis.lua" "$@"
+}
 
 # Create the build directory.
 if [ -d "$BUILD_DIRECTORY" ] ; then
     rm -rf "$BUILD_DIRECTORY"
 fi
 mkdir -p "$BUILD_DIRECTORY"
+mkdir -p "$PACKAGE_DIRECTORY"
 
-# Compile.
-lua "$COMPILE_PATH" --aif "$ROOT_DIRECTORY/Thoughts/Thoughts.opp" "$BUILD_DIRECTORY/Thoughts.app"
+# Determine the version number.
+VERSION_NUMBER=`changes version`
+VERSION_SHORT="${VERSION_NUMBER%.*}"
+
+# Compile and package.
+cd "$PACKAGE_DIRECTORY"
+compile --aif "$ROOT_DIRECTORY/Thoughts/Thoughts.opp" "Thoughts.app"
+makesis \
+    --path C:\\System\\Thoughts\\="$PACKAGE_DIRECTORY/" \
+    --path C:\\Projects\\Thoughts\\dependencies\\="$SOURCE_DIRECTORY/dependencies/" \
+    --version $VERSION_SHORT \
+    "$SOURCE_DIRECTORY/Thoughts.pkg" \
+    "$BUILD_DIRECTORY/Thoughts.sis"
+makesis \
+    --path C:\\System\\Thoughts\\="$PACKAGE_DIRECTORY/" \
+    --path C:\\Projects\\Thoughts\\dependencies\\="$SOURCE_DIRECTORY/dependencies/" \
+    --version $VERSION_SHORT \
+    "$SOURCE_DIRECTORY/ThoughtsC.pkg" \
+    "$BUILD_DIRECTORY/ThoughtsC.sis"
 
 # Archive the build directory.
 ZIP_BASENAME="build.zip"

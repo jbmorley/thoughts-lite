@@ -1,3 +1,6 @@
 [submodule "scripts/opolua"]
 	path = scripts/opolua
 	url = git@github.com:inseven/opolua.git
+[submodule "scripts/changes"]
+	path = scripts/changes
+	url = https://github.com/jbmorley/changes.git

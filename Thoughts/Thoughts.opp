@@ -7,6 +7,7 @@ INCLUDE "SystInfo.oxh"
 
 APP Thoughts, &100092ca
 	CAPTION "Thoughts", 1
+	ICON "icon.mbm"
 ENDA
 
 PROC main:
@@ -42,8 +43,6 @@ PROC main:
 			ELSE
 				PRINT k&
 			ENDIF
-		ELSEIF (ev&(KEvAType%) AND &400) = 0
-			PRINT ev&(1), ev&(2), ev&(3), ev&(4), ev&(5)
 		ELSEIF ev&(KEvAType%) = KEvCommand&
 			IF GETCMD$ = "X"
 				STOP
@@ -90,8 +89,18 @@ ENDP
 
 PROC clear:
 	CLS
+	REM Psion Series 5, 5mx, and 7 screens are 90 characters wide.
 	PRINT "Thoughts"
 	PRINT "========"
+	PRINT ""
+	PRINT "Copyright (c) 2024-2025 Jason Morley"
+	PRINT ""
+	PRINT "https://jbmorley.co.uk"
+	PRINT ""
+	PRINT ""
+	PRINT "Global Hotkeys:"
+	PRINT ""
+	PRINT "Menu + Fn + T - create a new date-stamped Frontmatter document and open in Editor"
 ENDP
 
 PROC new:
