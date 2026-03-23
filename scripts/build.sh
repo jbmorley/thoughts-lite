@@ -53,8 +53,9 @@ VERSION_NUMBER=`changes version`
 VERSION_SHORT="${VERSION_NUMBER%.*}"
 
 # Compile and package.
+cd "$SOURCE_DIRECTORY"
+compile --include "$SOURCE_DIRECTORY" --aif Thoughts.opp "$PACKAGE_DIRECTORY/Thoughts.app"
 cd "$PACKAGE_DIRECTORY"
-compile --aif "$ROOT_DIRECTORY/Thoughts/Thoughts.opp" "Thoughts.app"
 makesis \
     --path C:\\System\\Thoughts\\="$PACKAGE_DIRECTORY/" \
     --path C:\\Projects\\Thoughts\\dependencies\\="$SOURCE_DIRECTORY/dependencies/" \
