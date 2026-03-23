@@ -18,7 +18,7 @@ jobs:
     steps:
 
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         submodules: recursive
         fetch-depth: 0
@@ -35,7 +35,7 @@ jobs:
         scripts/build.sh
 
     - name: Archive the binary
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         path: build/build.zip
         if-no-files-found: error
