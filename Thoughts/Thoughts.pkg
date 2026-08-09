@@ -1,3 +1,4 @@
+; target: epoc32
 &EN
 #{"Thoughts"},(0x100092ca),0,0,0
 
