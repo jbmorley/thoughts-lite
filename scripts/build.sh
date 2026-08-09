@@ -31,8 +31,6 @@ SOURCE_DIRECTORY="$ROOT_DIRECTORY/Thoughts"
 BUILD_DIRECTORY="$ROOT_DIRECTORY/build"
 PACKAGE_DIRECTORY="$BUILD_DIRECTORY/package"
 
-source "$SCRIPTS_DIRECTORY/environment.sh"
-
 function compile {
     lua "$SCRIPTS_DIRECTORY/opolua/src/compile.lua" "$@"
 }
