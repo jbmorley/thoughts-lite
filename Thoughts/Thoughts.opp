@@ -78,7 +78,7 @@ ENDP
 
 PROC about:
 	dINIT "About Thoughts"
-	dTEXT "", "Copyright " + CHR$(169) + " Jason Morley 2024"
+	dTEXT "", "Copyright " + CHR$(169) + " Jason Morley 2024-2026"
 	dBUTTONS "OK", 13 + $100
 	DIALOG
 ENDP
@@ -93,7 +93,7 @@ PROC clear:
 	PRINT "Thoughts"
 	PRINT "========"
 	PRINT ""
-	PRINT "Copyright (c) 2024-2025 Jason Morley"
+	PRINT "Copyright (c) 2024-2026 Jason Morley"
 	PRINT ""
 	PRINT "https://jbmorley.co.uk"
 	PRINT ""
