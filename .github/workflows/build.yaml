@@ -15,6 +15,13 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+
+      MISE_CACHE_DIR: ${{ github.workspace }}/.mise/cache
+      MISE_CONFIG_DIR: ${{ github.workspace }}/.mise/config
+      MISE_DATA_DIR: ${{ github.workspace }}/.mise/data
+      MISE_STATE_DIR: ${{ github.workspace }}/.mise/state
+
     steps:
 
     - name: Checkout repository
@@ -24,20 +31,18 @@ jobs:
         fetch-depth: 0
         lfs: true
 
-    - name: Install Lua
-      uses: leafo/gh-actions-lua@v12
-
-    # Ensure we're using the latest version of mise in an attempt to catch upstream errors early.
-    - name: Get the latest mise version
-      id: mise
-      run: echo "version=$(curl -fsSL https://mise.jdx.dev/VERSION)" >> "$GITHUB_OUTPUT"
+    - name: Cache mise
+      id: cache-mise
+      uses: actions/cache@v6
+      with:
+        path: .mise
+        key: ${{ runner.os }}-${{ runner.arch }}-mise--${{ hashFiles('mise.toml') }}
 
     - name: Install mise
-      uses: jdx/mise-action@v5
+      uses: jdx/mise-action@v5.2.2
       with:
-        version: ${{ steps.mise.outputs.version }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        version: 2026.10.17
+        cache: false
 
     - name: Build
       run:  |
