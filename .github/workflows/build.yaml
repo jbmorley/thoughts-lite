@@ -33,7 +33,7 @@ jobs:
       run: echo "version=$(curl -fsSL https://mise.jdx.dev/VERSION)" >> "$GITHUB_OUTPUT"
 
     - name: Install mise
-      uses: jdx/mise-action@v4
+      uses: jdx/mise-action@v5
       with:
         version: ${{ steps.mise.outputs.version }}
       env:
