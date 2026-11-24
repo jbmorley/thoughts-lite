@@ -32,11 +32,11 @@ BUILD_DIRECTORY="$ROOT_DIRECTORY/build"
 PACKAGE_DIRECTORY="$BUILD_DIRECTORY/package"
 
 function compile {
-    lua "$SCRIPTS_DIRECTORY/opolua/src/compile.lua" "$@"
+    lua "$SCRIPTS_DIRECTORY/opolua/bin/compile.lua" "$@"
 }
 
 function makesis {
-    lua "$SCRIPTS_DIRECTORY/opolua/src/makesis.lua" "$@"
+    lua "$SCRIPTS_DIRECTORY/opolua/bin/makesis.lua" "$@"
 }
 
 # Create the build directory.
