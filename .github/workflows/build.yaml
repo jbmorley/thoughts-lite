@@ -41,7 +41,7 @@ jobs:
     - name: Install mise
       uses: jdx/mise-action@v5.2.2
       with:
-        version: 2026.10.17
+        version: 2026.11.13
         cache: false
 
     - name: Build
